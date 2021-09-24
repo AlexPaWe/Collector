@@ -1,6 +1,9 @@
 package de.alexpawe.collector;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -69,9 +72,17 @@ public class Main {
 		}
 		
 		// Print table
-		System.out.println(table.toString());
+		String tablestring = table.toString();
+		System.out.println(tablestring);
 		
 		// Export table as csv
+		try (PrintWriter writer = new PrintWriter(new File("results.csv"))) {
+			writer.write(tablestring);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println("Done!");
 	}
