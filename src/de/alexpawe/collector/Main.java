@@ -24,6 +24,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// Read tasks.json file and create an JSON Object
+		System.out.print("Reading tasks.json file...");
 		String jsonString = null;
 		try {
 			jsonString = Files.readString(Paths.get("results\\tasks.json"));
@@ -44,8 +45,7 @@ public class Main {
 			Task task = new Task(taskID, taskObj);
 			Tasks.put(taskID, task);
 		}
-		
-		// TODO: Create a table and output it as a csv file
+		System.out.println(" done!");
 		
 		// Get the header
 		Set<String> header = new TreeSet<String>();
@@ -62,9 +62,10 @@ public class Main {
 			}
 		}
 		header.add("Iteration");
-		System.out.println("Header is " + header.toString());
+		//System.out.println("Header is " + header.toString());
 		
 		// Create table
+		System.out.print("Create table...");
 		Table table = new Table(header);
 		for (String taskID : taskIDs) {
 			List<Map<String, String>> rows = Tasks.get(taskID).getRows();
@@ -73,9 +74,11 @@ public class Main {
 		
 		// Print table
 		String tablestring = table.toString();
-		System.out.println(tablestring);
+		//System.out.println(tablestring);
+		System.out.println(" done!");
 		
 		// Export table as csv
+		System.out.print("Save table to results.csv file...");
 		try (PrintWriter writer = new PrintWriter(new File("results.csv"))) {
 			writer.write(tablestring);
 			writer.close();
@@ -83,6 +86,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(" done!");
 		
 		System.out.println("Done!");
 	}

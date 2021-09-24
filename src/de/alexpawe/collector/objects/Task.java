@@ -48,7 +48,7 @@ public class Task {
 					Map<String, String> tmp = new HashMap<String, String>();
 					for (int i = 0; i < line.length; i++) {	
 						tmp.put(metricsheader[i], line[i]);
-						System.out.println(tmp);
+						//System.out.println(tmp);
 					}
 					iterations.put(j, tmp);
 				}

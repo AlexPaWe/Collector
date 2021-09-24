@@ -49,7 +49,7 @@ public class Table {
 			}
 		}
 		headerstring = headerstring.concat("\n");
-		System.out.println(headerstring);
+		//System.out.println(headerstring);
 		
 		String rowstring = "";
 		for (String[] row : rows) {
