@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class Table {
 
@@ -41,14 +42,16 @@ public class Table {
 	}
 	
 	public String toString() {
-		String headerstring = "";
+		/*String headerstring = "";
 		for (int h = 0; h < header.length; h++) {
 			headerstring = headerstring.concat(header[h]);
 			if (h != header.length - 1) {
 				headerstring = headerstring.concat(",");
 			}
 		}
-		headerstring = headerstring.concat("\n");
+		headerstring = headerstring.concat("\n");*/
+		
+		String headerstring = getPrintHeader();
 		//System.out.println(headerstring);
 		
 		String rowstring = "";
@@ -65,4 +68,17 @@ public class Table {
 		return headerstring.concat(rowstring);
 	}
 	
+	public String getPrintHeader() {
+		String printheader = "";
+		for (int i = 0; i < header.length; i++) {
+			if (Pattern.matches("[A-Z_]*", header[i]) || header[i] == "Iteration") {
+				printheader = printheader.concat("param-" + header[i]);
+			} else {
+				printheader = printheader.concat("metric-" + header[i]);
+			}
+			if (i != header.length - 1)
+				printheader = printheader.concat(",");
+		}
+		return printheader.concat("\n");
+	}
 }
