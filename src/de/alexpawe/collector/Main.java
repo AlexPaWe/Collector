@@ -13,6 +13,7 @@ import java.util.TreeSet;
 
 import org.json.*;
 
+import de.alexpawe.collector.objects.Table;
 import de.alexpawe.collector.objects.Task;
 
 public class Main {
@@ -58,17 +59,19 @@ public class Main {
 			}
 		}
 		header.add("Iteration");
-		System.out.println(header.toString());
+		System.out.println("Header is " + header.toString());
 		
 		// Create table
+		Table table = new Table(header);
 		for (String taskID : taskIDs) {
-			Map<String, String> row = new HashMap<String, String>();
-			
-			Task currentTask = Tasks.get(taskID);
-			for (String columnheader : header) {
-				currentTask
-			}
+			List<Map<String, String>> rows = Tasks.get(taskID).getRows();
+			table.addRows(rows);
 		}
+		
+		// Print table
+		System.out.println(table.toString());
+		
+		// Export table as csv
 		
 		System.out.println("Done!");
 	}

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -76,14 +77,25 @@ public class Task {
 		return id;
 	}
 	
-	public Map<String, String> getRows() {
-		Map<String, String> row = new HashMap<String, String>();
-		row.put("TASKID", id);
+	public List<Map<String, String>> getRows() {
+		List<Map<String, String>> rows = new LinkedList<Map<String, String>>(); 
+		
 		for (Entry<Integer, Map<String, String>> iteration : iterations.entrySet()) {
+			Map<String, String> row = new HashMap<String, String>();
+			row.put("TASKID", id);
+			row.put("Iteration", iteration.getKey().toString());
+			
 			for (Entry<String, Object> entry : parameters.entrySet()) {
 				row.put(entry.getKey(), (String) entry.getValue());
 			}
+			
+			Map<String, String> metrics = iteration.getValue();
+			for (Entry<String, String> entry : metrics.entrySet()) {
+				row.put(entry.getKey(), entry.getValue());
+			}
+			rows.add(row);
 		}
+		return rows;
 	}
 	
 	public Path getFolderPath() {
