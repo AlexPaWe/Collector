@@ -8,8 +8,13 @@ import java.util.regex.Pattern;
 
 public class Table {
 
-	private List<String[]> rows;
+	public static final String CSV_LIMITER = ",";
+	
+	public static final String PARAM_PRE  = "param-";
+	public static final String METRIC_PRE = "metric-";
+	
 	private String[] header;
+	private List<String[]> rows;
 	
 	
 	public Table(Set<String> header) {
@@ -59,7 +64,7 @@ public class Table {
 			for (int i = 0; i < row.length; i++) {
 				rowstring = rowstring.concat(row[i]);
 				if (i != row.length - 1) {
-					rowstring = rowstring.concat(",");
+					rowstring = rowstring.concat(CSV_LIMITER);
 				}
 			}
 			rowstring = rowstring.concat("\n");
@@ -71,10 +76,10 @@ public class Table {
 	public String getPrintHeader() {
 		String printheader = "";
 		for (int i = 0; i < header.length; i++) {
-			if (Pattern.matches("[A-Z_]*", header[i]) || header[i] == "Iteration") {
-				printheader = printheader.concat("param-" + header[i]);
+			if (Pattern.matches("[A-Z_]*", header[i])) {
+				printheader = printheader.concat(PARAM_PRE + header[i]);
 			} else {
-				printheader = printheader.concat("metric-" + header[i]);
+				printheader = printheader.concat(METRIC_PRE + header[i]);
 			}
 			if (i != header.length - 1)
 				printheader = printheader.concat(",");
