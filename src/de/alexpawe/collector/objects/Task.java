@@ -38,7 +38,7 @@ public class Task {
 		metricsheader = null;
 		List<String[]> r = null;
 		
-		String path = "results\\" + id + "\\combined.csv";
+		String path = "results/" + id + "/combined.csv";
 		try (CSVReader reader = new CSVReader(new FileReader(path))) {
 			r = reader.readAll();
 			if (r.size() > 0) {
@@ -99,7 +99,7 @@ public class Task {
 	}
 	
 	public Path getFolderPath() {
-		String path = "result\\" + id;
-		return Path.of("result\\", id);
+		String path = "result/" + id;
+		return Path.of("result/", id);
 	}
 }

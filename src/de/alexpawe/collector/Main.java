@@ -26,7 +26,7 @@ public class Main {
 		System.out.print("Reading tasks.json file...");
 		String jsonString = null;
 		try {
-			jsonString = Files.readString(Paths.get("results\\tasks.json"));
+			jsonString = Files.readString(Paths.get("results/tasks.json"));
 					//readString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
