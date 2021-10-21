@@ -23,7 +23,7 @@ public class Task {
 	private Map<Integer, Map<String, String>> iterations;
 	
 	private String[] metricsheader;
-	
+	private String[] tracepointheader;
 	
 	public Task(String id, JSONObject taskObj) {
 		this.id = id;
@@ -38,13 +38,16 @@ public class Task {
 		metricsheader = null;
 		List<String[]> r = null;
 		
-		String path = "results/" + id + "/combined.csv";
-		try (CSVReader reader = new CSVReader(new FileReader(path))) {
+		String combined_path = "results/" + id + "/combined.csv";
+		try {
+			CSVReader reader = new CSVReader(new FileReader(combined_path));
 			r = reader.readAll();
 			if (r.size() > 0) {
-			metricsheader = r.get(0);
+				metricsheader = r.get(0);
+				System.out.println(r.size());	// TODO: Remove
 				for (int j = 1; j < r.size(); j++) {
 					String[] line = r.get(j);
+					System.out.println(j + ".: " + line[line.length-1]);	// TODO: Remove
 					Map<String, String> tmp = new HashMap<String, String>();
 					for (int i = 0; i < line.length; i++) {	
 						tmp.put(metricsheader[i], line[i]);
@@ -52,9 +55,11 @@ public class Task {
 					}
 					iterations.put(j, tmp);
 				}
+			} else {
+				System.out.println(combined_path + " is empty");
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println("File not found: " + e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -62,6 +67,39 @@ public class Task {
 		} catch (CsvException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		tracepointheader = null;
+		List<String[]> s = null;
+		
+		System.out.println("Combined files read!");
+		
+		for (int iteration : iterations.keySet()) {
+			String traces_path = "results/" + id + "/traces" + iteration + ".csv";
+			try {
+				CSVReader tracesReader = new CSVReader(new FileReader(traces_path));
+				s = tracesReader.readAll();
+				if (s.size() > 0) {
+					tracepointheader = s.get(0);
+					for (int k = 1; k < s.size(); k++) {
+						String[] line = s.get(k);
+						Map<String, String> tmptp = new HashMap<String, String>();
+						for (int l = 0; l < line.length; l++) {
+							tmptp.put(tracepointheader[l], line[l]);
+						}
+						iterations.get(iteration).putAll(tmptp);
+					}
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CsvException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -71,6 +109,10 @@ public class Task {
 	
 	public String[] getMetricsheader() {
 		return metricsheader;
+	}
+	
+	public String[] getTracepointheader() {
+		return tracepointheader;
 	}
 	
 	public String getID() {

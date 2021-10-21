@@ -47,14 +47,6 @@ public class Table {
 	}
 	
 	public String toString() {
-		/*String headerstring = "";
-		for (int h = 0; h < header.length; h++) {
-			headerstring = headerstring.concat(header[h]);
-			if (h != header.length - 1) {
-				headerstring = headerstring.concat(",");
-			}
-		}
-		headerstring = headerstring.concat("\n");*/
 		
 		String headerstring = getPrintHeader();
 		//System.out.println(headerstring);
@@ -69,7 +61,6 @@ public class Table {
 			}
 			rowstring = rowstring.concat("\n");
 		}
-		
 		return headerstring.concat(rowstring);
 	}
 	

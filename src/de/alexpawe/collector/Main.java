@@ -60,6 +60,12 @@ public class Main {
 					header.add(metric);
 				}
 			}
+			String[] tracepointheader = entry.getValue().getTracepointheader();
+			if (tracepointheader != null) {
+				for (String tpmetric : tracepointheader) {
+					header.add(tpmetric);
+				}
+			}
 		}
 		header.add("Iteration");
 		//System.out.println("Header is " + header.toString());
