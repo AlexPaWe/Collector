@@ -49,9 +49,13 @@ public class Task {
 					String[] line = r.get(j);
 					System.out.println(j + ".: " + line[line.length-1]);	// TODO: Remove
 					Map<String, String> tmp = new HashMap<String, String>();
-					for (int i = 0; i < line.length; i++) {	
-						tmp.put(metricsheader[i], line[i]);
-						//System.out.println(tmp);
+					if (metricsheader.length > 2) {
+						for (int i = 0; i < line.length; i++) {
+							System.out.println(line[i]);
+							System.out.println("metricsheader[" + i + "] = " + metricsheader[i] + ";\n" + "line[" + i + "] = " + line[i]);
+							tmp.put(metricsheader[i], line[i]);
+							//System.out.println(tmp);
+						}
 					}
 					iterations.put(j, tmp);
 				}
