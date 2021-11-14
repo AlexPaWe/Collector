@@ -44,15 +44,15 @@ public class Task {
 			r = reader.readAll();
 			if (r.size() > 0) {
 				metricsheader = r.get(0);
-				System.out.println(r.size());	// TODO: Remove
+				//System.out.println(r.size());	// TODO: Remove
 				for (int j = 1; j < r.size(); j++) {
 					String[] line = r.get(j);
-					System.out.println(j + ".: " + line[line.length-1]);	// TODO: Remove
+					//System.out.println(j + ".: " + line[line.length-1]);	// TODO: Remove
 					Map<String, String> tmp = new HashMap<String, String>();
 					if (metricsheader.length > 2) {
 						for (int i = 0; i < line.length; i++) {
-							System.out.println(line[i]);
-							System.out.println("metricsheader[" + i + "] = " + metricsheader[i] + ";\n" + "line[" + i + "] = " + line[i]);
+							//System.out.println(line[i]);
+							//System.out.println("metricsheader[" + i + "] = " + metricsheader[i] + ";\n" + "line[" + i + "] = " + line[i]);
 							tmp.put(metricsheader[i], line[i]);
 							//System.out.println(tmp);
 						}
